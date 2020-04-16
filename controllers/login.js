@@ -17,7 +17,7 @@ async function signIn(req, res, next) {
                     { userName: req.body.userName },
                     {
                         [Op.or]: [
-                            { accepted: true},
+                            { accepted: true },
                             { role: "admin" }
                         ]
                     }
@@ -25,7 +25,7 @@ async function signIn(req, res, next) {
 
             }
         });
-        console.log(users)
+        // console.log(users)
         let match = null;
         if (users) {
             match = passwordHash.verify(req.body.password, users.password);
@@ -45,12 +45,12 @@ async function signIn(req, res, next) {
                 uSuccess: true,
                 pSuccess: true,
                 role: users.role,
-                token: await jwt.sign({ id: users.id }, 'keyboard cat 4 ever', { expiresIn: '1h' }) // Signing the token
+                token: await jwt.sign({ id: users.id, userName: users.userName }, 'keyboard cat 4 ever', { expiresIn: '1h' }) // Signing the token
             });
             // localStorage.setItem(token,token)
             //login
             // token = await jwt.sign({ id: users.id }, 'keyboard cat 4 ever', { expiresIn: '1h' }); // Signing the token
-            
+
             // localStorage.setItem("token",token)
             // token=localStorage.getItem("role")
             // console.log("role is :"+token)

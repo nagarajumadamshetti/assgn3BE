@@ -8,13 +8,13 @@ module.exports = (sequelize, DataTypes) => {
     accepted: DataTypes.BOOLEAN,
     phone: DataTypes.STRING
   }, {});
-  Users.associate = function(models) {
+  Users.associate = function (models) {
     // associations can be defined here
-    Users.hasMany(models.Posts);
-    Users.hasMany(models.Likes);
-    Users.hasMany(models.FollowRequests);
-    Users.hasMany(models.Following);
-    Users.hasMany(models.Followers);
+    Users.hasMany(models.Posts, { foreignKey: 'userId' });
+    Users.hasMany(models.Likes, { foreignKey: 'userId' });
+    Users.hasMany(models.FollowRequests, { foreignKey: 'userId' });
+    Users.hasMany(models.Following, { foreignKey: 'userId' });
+    Users.hasMany(models.Followers, { foreignKey: 'userId' });
   };
   return Users;
 };
