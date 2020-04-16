@@ -19,55 +19,61 @@ async function followAPI(req, res, next) {
         });
         console.log(" ")
         console.log(" ")
-        let u=await models.Followers.findOne({
+        let u = await models.Followers.findOne({
+            where: {
+                userId: users.id,
+                followersUserName: payload.userName
+            }
+        })
+
+        let followRequests=await models.FollowRequests.findOne({
             where:{
                 userId:users.id,
-                followersUserName:payload.userName
+                followRequestUserId:payload.id
             }
         })
         console.log(u)
-        if(u)
-        {
+        if (u) {
             console.log("follow already exists")
             res.send({
-                success:false,
-                message:"follow already exists"
+                success: false,
+                message: "follow already exists"
+            })
+            return;
+        }
+        if(followRequests){
+            console.log("follow  request already exists")
+            res.send({
+                success: false,
+                message: "follow request already exists"
             })
             return;
         }
         console.log("follow  not exists")
         console.log(" ")
         console.log(" ")
-        
-        let following = await models.Following.create({
-            userId: payload.id,
-            followingUserId: users.id,
-            followingUserName: users.userName,
-        });
-        console.log(" ")
-        console.log(" ")
-        
-        let followers = await models.Followers.create({
+
+         followRequests = await models.FollowRequests.create({
             userId: users.id,
-            followersUserId: payload.id,
-            followersUserName: payload.userName,
+            followRequestUserId: payload.id,
+            followRequestUserName: payload.userName,
         });
-
         console.log(" ")
         console.log(" ")
 
-        followers=await models.Followers.findAll({
-            where:{
-                userId:users.id
+
+        let followers = await models.Followers.findAll({
+            where: {
+                userId: users.id
             }
         })
-        
+
         console.log(" ")
         console.log(" ")
 
-        following=await models.Following.findAll({
-            where:{
-                userId:users.id
+        let following = await models.Following.findAll({
+            where: {
+                userId: users.id
             }
         })
         res.status(200).send(

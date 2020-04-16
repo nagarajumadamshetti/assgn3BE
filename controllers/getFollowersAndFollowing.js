@@ -24,8 +24,15 @@ async function getFollowersAndFollowing(req, res, next) {
                 }
             ]
         })
+        if(users.length===0){
+            res.status(404).send({
+                success:false
+            })
+            return;
+        }
         let followers = users.map(user => {
             //tidy up the user data
+            
             return Object.assign(
                 {},
                 {
@@ -71,7 +78,7 @@ async function getFollowersAndFollowing(req, res, next) {
                             {},
                             {
                                 userId: following.userId,
-                                followingUserId: following.followersUserId,
+                                followingUserId: following.followingUserId,
                                 followingUserName: following.followingUserName,
                             }
                         )

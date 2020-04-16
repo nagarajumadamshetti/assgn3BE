@@ -66,6 +66,10 @@ const getUserPosts = async (req, res, next) => {
                         {
                             model: models.Images,
                             attributes: ['id', 'postId', 'imageUrl', 'lastModified']
+                        },
+                        {
+                            model: models.Likes,
+                            attributes: ['id', 'postId', 'userId', 'likedUserName']
                         }
                     ]
                 }
@@ -74,6 +78,11 @@ const getUserPosts = async (req, res, next) => {
             .then(users => {
                 console.log(" ")
                 console.log(" ")
+                if (users.length == 0) {
+                    res.status(404).send({
+                        success: false
+                    });
+                }
                 // console.log(users)
                 const data = users.map(user => {
                     //tidy up the user data
@@ -101,22 +110,35 @@ const getUserPosts = async (req, res, next) => {
                                                     lastModified: image.lastModified,
                                                 }
                                             )
+                                        }),
+                                        likes: post.Likes.map(like => {
+
+                                            //tidy up the image data
+                                            return Object.assign(
+                                                {},
+                                                {
+                                                    like_id: like.id,
+                                                    post_id: like.postId,
+                                                    userId: like.userId,
+                                                    likedUserName: like.likedUserName,
+                                                }
+                                            )
                                         })
                                     }
                                 )
                             })
                         }
                     )
- 
+
                 });
                 console.log(" ")
                 console.log(" ")
                 res.send({
                     data,
-                    success:true
+                    success: true
                 });
             })
-                            
+
         // res.send(users);
         // let users = await models.Users.findOne(
         //     {
