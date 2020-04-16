@@ -19,22 +19,36 @@ async function unFollowAPI(req, res, next) {
         });
         console.log(" ")
         console.log(" ")
-        const following = await models.Following.destroy({
+        let following = await models.Following.destroy({
             where: {
-                id: payload.id,
+                userId: payload.id,
                 followingUserId: users.id
             }
         });
         console.log(" ")
         console.log(" ")
-        const followers = await models.Followers.destroy({
+        let followers = await models.Followers.destroy({
             where: {
-                id: users.id,
+                userId: users.id,
                 followersUserId: payload.id
             }
         });
         console.log(" ")
         console.log(" unfollow done ")
+        followers=await models.Followers.findAll({
+            where:{
+                userId:users.id
+            }
+        })
+        
+        console.log(" ")
+        console.log(" ")
+
+        following=await models.Following.findAll({
+            where:{
+                userId:users.id
+            }
+        })
         res.status(200).send(
             {
                 followers,
