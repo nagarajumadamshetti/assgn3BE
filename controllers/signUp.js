@@ -16,6 +16,7 @@ async function signUp(req, res, next) {
             users,
             success: true
         });
+
         
     } catch (error) {
         console.log("catch signup")

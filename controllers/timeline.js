@@ -9,14 +9,18 @@ const app = express();
 
 const timeline = async (req, res, next) => {
     try {
-        console.log("entered get  user posts")
+        console.log(" ")
+        console.log(" ")
+        console.log(" ")
+        console.log(" ")
+        
+        console.log("entered get  timeline")
 
-        console.log(req.params.id)
         console.log(" ")
         console.log(" ")
         console.log(" ")
         console.log(" ")
-        users = await models.Users.findAll({
+        let timeline = await models.Users.findAll({
             where: {
                 userName: req.params.id
             },
@@ -24,60 +28,39 @@ const timeline = async (req, res, next) => {
             include: [
                 {
                     model: models.Following,
-                }
+                    where: {
+
+                    },
+                    include: [
+                        {
+                            model: models.Posts,
+                            where: {
+                                userId: models.Following.followingUserId
+                            },
+                            include: [
+                                {
+                                    model: models.Images,
+                                    attributes: ['id', 'postId', 'imageUrl', 'lastModified']
+                        
+                                },
+                                {
+                                    model: models.Likes,
+                                    attributes: ['id', 'postId', 'userId', 'likedUserName']
+                                }
+                            ]
+                        }
+                    ]
+                },
             ]
         })
-        let following = users.map(user => {
-            //tidy up the user data
-            return Object.assign(
-                {},
-                {
-                    user_id: user.id,
-                    following: user.Followings.map(following => {
 
-                        //tidy up the Folloeing data
-                        return Object.assign(
-                            {},
-                            {
-                                userId: following.userId,
-                                followingUserId: following.followingUserId,
-                                followingUserName: following.followingUserName,
-                            }
-                        )
-                    })
-                }
-            )
-        })
-        console.log(" ")
-        console.log(" ")
-        let timeline = following[0].following.map(following => {
-            return Object.assign(
-                {},
-                {
-                    userId: following.userId,
-                    followingUserId: following.followingUserId,
-                    followingUserName: following.followingUserName,
-                    posts: await models.Posts.findAll({
-                        where: {
-                            userId: following.userId
-                        },
-                        attributes: ['id', 'description'],
-                        include: [
-                            {
-                                model: models.Images,
-                                attributes: ['id', 'postId', 'imageUrl', 'lastModified']
-                            },
-                            {
-                                model: models.Likes,
-                                attributes: ['id', 'postId', 'userId', 'likedUserName']
-                            }
-                        ]
-                    })
-                }
-            )
-        })
-        console.log(" ")
-        console.log(" ")
+        console.log("");
+        console.log("");
+        console.log("");
+        console.log(timeline);
+        console.log("");
+        console.log("");
+        console.log("");
         res.send({
             timeline,
             success: true

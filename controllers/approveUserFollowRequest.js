@@ -5,6 +5,7 @@ const moment = require('moment');
 const { Op } = require('sequelize')
 const express = require('express');
 const app = express();
+
 async function approveUserFollowRequest(req, res, next) {
     try {
         const payload = jwt.decode(req.body.loggedUserIdToken)

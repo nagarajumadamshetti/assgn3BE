@@ -7,6 +7,7 @@ const express = require('express');
 const app = express();
 async function deletePost(req, res, next) {
     try {
+        
         console.log("delete post    api   is called")
         console.log(" ")
         console.log(" ")

@@ -9,7 +9,6 @@ async function getUserFollowRequests(req, res, next) {
     try {
         console.log("entered get user follow  requests")
         // console.log("entered signup2");
-
         const users = await models.Users.findOne({
             where: {
                 userName: req.params.id

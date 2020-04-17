@@ -18,6 +18,7 @@ const addImages = async (posts) => {
                 attributes: ['id', 'postId']
             }
         );
+        
         // console.log(images)
         let obj = {
             ...post,

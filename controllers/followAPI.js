@@ -7,6 +7,7 @@ const express = require('express');
 const app = express();
 async function followAPI(req, res, next) {
     try {
+        
         console.log("follow api is called")
         console.log(" ")
         console.log(" ")

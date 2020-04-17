@@ -21,6 +21,7 @@ app.use(bodyParser.json());
 // app.use(cookieParser());
 
 
+
 app.use('/', indexRouter);
 
 // app.use((req, res, next) => {
@@ -41,8 +42,8 @@ app.use(function (req, res, next) {
 
 // error handler
 app.use((err, req, res, next)=> {
-  res.send(err);
-  // console.log(err)
+  // res.send(err);
+  console.log(err)
 //   // next(err);
 });
 app.listen(PORT, () => {

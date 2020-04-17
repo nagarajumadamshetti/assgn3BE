@@ -17,6 +17,7 @@ async function unFollowAPI(req, res, next) {
             },
             attributes: ['id', 'userName']
         });
+        
         console.log(" ")
         console.log(" ")
         let following = await models.Following.destroy({

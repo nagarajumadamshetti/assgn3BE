@@ -16,6 +16,8 @@ const DeletePost = require('../controllers/deletePost');
 const GetUserFollowRequests = require('../controllers/getUserFollowRequests');
 const ApproveUserFollowRequests = require('../controllers/approveUserFollowRequest');
 const DeclineUserFollowRequests = require('../controllers/declineUserFollowRequest');
+const Timeline = require('../controllers/timeline');
+
 /* GET home page. */
 // router.get('/users/getActivities/:userName/:date',controller.getActivities);
 
@@ -35,6 +37,7 @@ router.post('/deletePost', DeletePost);
 router.put('/approveFollowRequest', ApproveUserFollowRequests);
 router.delete('/declineFollowRequest', DeclineUserFollowRequests)
 router.get('/getFollowRequests/:id', GetUserFollowRequests)
+router.get('/timeline/:id', Timeline);
 // router.put('/users/updatePassword',controller.updatePassword);
 // router.post('/users/submitActivities',controller.postActivities);
 // router.get('/users/userReport/:userName',controller.userReport);

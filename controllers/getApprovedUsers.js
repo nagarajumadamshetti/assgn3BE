@@ -7,6 +7,7 @@ const express = require('express');
 const app = express();
 async function getApprovedUsers(req, res, next) {
     try {
+        
         console.log("entered get approved users")
         // console.log("entered signup2");
         const users = await models.Users.findAll(

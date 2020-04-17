@@ -2,11 +2,11 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.addConstraint('Images', ['postId'], {
+    return queryInterface.addConstraint('Posts', ['userId'], {
       type: 'foreign key',
-      name: 'custom_fkey_images',
+      name: 'custom_fkey_following_posts',
       references: { //Required field
-        table: 'Posts',
+        table: 'Followings',
         field: 'id'
       },
       onDelete: 'cascade',

@@ -7,6 +7,7 @@ const express = require('express');
 const app = express();
 async function getFollowersAndFollowing(req, res, next) {
     try {
+        
         console.log(" ")
         console.log(" ")
         console.log("get followers and following")

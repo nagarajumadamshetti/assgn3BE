@@ -16,6 +16,7 @@ async function likeOrUnlikePost(req, res, next) {
                 postId: req.body.postId,
                 userId: payload.id
             },
+            
         });
         console.log(" ")
         console.log(" ")
