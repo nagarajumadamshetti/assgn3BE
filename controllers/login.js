@@ -47,7 +47,7 @@ async function signIn(req, res, next) {
                 role: users.role,
                 token: await jwt.sign({ id: users.id, userName: users.userName }, 'keyboard cat 4 ever', { expiresIn: '1h' }) // Signing the token
             });
-            // localStorage.setItem(token,token)
+            // localStorage.setItem(token,token)   
             //login
             // token = await jwt.sign({ id: users.id }, 'keyboard cat 4 ever', { expiresIn: '1h' }); // Signing the token
 

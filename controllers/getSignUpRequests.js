@@ -20,7 +20,6 @@ async function getSignUpRequests(req, res, next) {
                             }
                         }
                     ]
-
                 },
                 attributes: ['userName']
             });
