@@ -1,12 +1,13 @@
 'use strict';
 
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.addConstraint('Posts', ['userId'], {
+    return queryInterface.addConstraint('Following', ['followingUserId'], {
       type: 'foreign key',
       name: 'custom_fkey_following_posts',
       references: { //Required field
-        table: 'Followings',
+        table: 'Users',
         field: 'id'
       },
       onDelete: 'cascade',

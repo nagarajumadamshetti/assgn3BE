@@ -20,23 +20,21 @@ const timeline = async (req, res, next) => {
         console.log(" ")
         console.log(" ")
         console.log(" ")
-        let timeline = await models.Users.findAll({
+        let timeline = await models.Following.findAll({
             where: {
-                userName: req.params.id
+                userId: token.id
             },
+            
             attributes: ['id', 'userName'],
             include: [
                 {
-                    model: models.Following,
-                    where: {
-
-                    },
+                    model: models.Users,
+                    
+                    as:'followingUser',
                     include: [
                         {
                             model: models.Posts,
-                            where: {
-                                userId: models.Following.followingUserId
-                            },
+                           
                             include: [
                                 {
                                     model: models.Images,
