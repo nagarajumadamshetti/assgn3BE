@@ -9,37 +9,40 @@ const app = express();
 
 const timeline = async (req, res, next) => {
     try {
+        // console.log(req.params.id)
+        const payload = jwt.decode(req.params.id)
         console.log(" ")
         console.log(" ")
         console.log(" ")
         console.log(" ")
-        
+
         console.log("entered get  timeline")
 
         console.log(" ")
         console.log(" ")
+        console.log(payload.id)
         console.log(" ")
         console.log(" ")
         let timeline = await models.Following.findAll({
             where: {
-                userId: token.id
+                userId: payload.id
             },
-            
-            attributes: ['id', 'userName'],
+            // as: 'user',
+
             include: [
                 {
                     model: models.Users,
-                    
-                    as:'followingUser',
+                    as: 'followingUser',
+                    attributes: ['id','userName'],
                     include: [
                         {
                             model: models.Posts,
-                           
+
                             include: [
                                 {
                                     model: models.Images,
                                     attributes: ['id', 'postId', 'imageUrl', 'lastModified']
-                        
+
                                 },
                                 {
                                     model: models.Likes,
@@ -51,26 +54,31 @@ const timeline = async (req, res, next) => {
                 },
             ]
         })
-
+        let posts=[];
+        timeline=timeline.map(el=>{
+            posts=posts.concat(el.followingUser.Posts)
+        })
         console.log("");
         console.log("");
         console.log("");
-        console.log(timeline);
+        // console.log(timeline);
         console.log("");
         console.log("");
         console.log("");
         res.send({
-            timeline,
+            posts,
             success: true
         });
 
 
 
     } catch (error) {
+        console.log(error)
         res.status(404).json({
-            success: false
+            success: false,
+            error
         });
-        next(error);
+        // next(error);
     }
 }
 module.exports = exports = timeline;
