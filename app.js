@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 4000;
 app.use(cors());
 // app.use(bodyParser({ limit: '100mb' }));
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.json({limit: '50mb'}));
+app.use(express.json({ limit: '50mb' }));
 app.use(bodyParser.json());
 
 // app.use(cookieParser());
@@ -36,15 +36,18 @@ app.use('/', indexRouter);
 
 
 //catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404));
-});
+// app.use(function (req, res, next) {
+//   next(createError(404));
+// });
 
 // error handler
-app.use((err, req, res, next)=> {
-  // res.send(err);
+app.use((err, req, res, next) => {
+  res.status(404).json({
+    sucess: false,
+     error:err
+  });
   console.log(err)
-//   // next(err);
+  //   // next(err);
 });
 app.listen(PORT, () => {
   console.log(`server Started at ${PORT}`);

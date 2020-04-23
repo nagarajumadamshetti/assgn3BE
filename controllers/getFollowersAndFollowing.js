@@ -1,22 +1,12 @@
 const models = require('../models');
-const passwordHash = require('password-hash');
-const jwt = require('jsonwebtoken');
-const moment = require('moment');
-const { Op } = require('sequelize')
-const express = require('express');
-const app = express();
+
 async function getFollowersAndFollowing(req, res, next) {
     try {
-        
-        console.log(" ")
-        console.log(" ")
-        console.log("get followers and following")
-        console.log(" ")
-        console.log(" ")
-        console.log(req.params.id)
+
         let users = await models.Users.findAll({
             where: {
-                userName: req.params.id
+                userName: req.params.id,
+                accepted: true,
             },
             attributes: ['id', 'userName'],
             include: [
@@ -25,15 +15,15 @@ async function getFollowersAndFollowing(req, res, next) {
                 }
             ]
         })
-        if(users.length===0){
-            res.status(404).send({
-                success:false
+        if (users.length === 0) {
+            res.status(404).json({
+                success: false
             })
             return;
         }
         let followers = users.map(user => {
             //tidy up the user data
-            
+
             return Object.assign(
                 {},
                 {
@@ -53,9 +43,8 @@ async function getFollowersAndFollowing(req, res, next) {
                 }
             )
         })
-        console.log(" ")
-        console.log(" ")
-         users = await models.Users.findAll({
+
+        users = await models.Users.findAll({
             where: {
                 userName: req.params.id
             },
@@ -87,41 +76,14 @@ async function getFollowersAndFollowing(req, res, next) {
                 }
             )
         })
-        console.log(" ")
-        console.log(" ")
-        console.log("get followers and following done")
-        console.log(" ")
-        console.log(" ")
-        
-        // const users = await models.Users.findAll({
-        //     where: {
-        //         userName: req.params.id
-        //     },
-        //     attributes: ['id']
-        // })
-        // console.log(users.id);
-        // const followers = await models.Followers.findAll({
-        //     where: {
-        //         userId: users.id
-        //     }
-        // });
-        // const following = await models.Followings.findAll({
-        //     where: {
-        //         userId: users.id
-        //     }
-        // });
-        res.send(
+        res.status(200).json(
             {
                 followers,
                 following,
                 success: true
             })
     } catch (error) {
-        console.log(error)
-        res.status(404).send({
-            success: false
-        })
-        // next(error);
+        next(error);
     }
 }
 module.exports = exports = getFollowersAndFollowing;

@@ -1,10 +1,8 @@
 const models = require('../models');
 const passwordHash = require('password-hash');
 const jwt = require('jsonwebtoken');
-const moment = require('moment');
 const { Op } = require('sequelize')
-const express = require('express');
-const app = express();
+
 async function signIn(req, res, next) {
     try {
         
@@ -26,11 +24,11 @@ async function signIn(req, res, next) {
 
             }
         });
-        // console.log(users)
+
         let match = null;
         if (users) {
             match = passwordHash.verify(req.body.password, users.password);
-            console.log("match value is ::  " + match)
+            
         }
         else {
             res.send({
@@ -41,25 +39,13 @@ async function signIn(req, res, next) {
             })
         }
         if (match) {
-            res.send({
+            res.status(200).json({
                 success: true,
                 uSuccess: true,
                 pSuccess: true,
                 role: users.role,
                 token: await jwt.sign({ id: users.id, userName: users.userName }, 'keyboard cat 4 ever', { expiresIn: '1h' }) // Signing the token
             });
-            // localStorage.setItem(token,token)   
-            //login
-            // token = await jwt.sign({ id: users.id }, 'keyboard cat 4 ever', { expiresIn: '1h' }); // Signing the token
-
-            // localStorage.setItem("token",token)
-            // token=localStorage.getItem("role")
-            // console.log("role is :"+token)
-            // const payload = jwt.decode(token)
-            // console.log("id is"+payload.id)
-            // users.jwtToken=token;
-            // browser.cookie
-
         }
         else {
             res.send(
@@ -70,11 +56,7 @@ async function signIn(req, res, next) {
                     role: users.role
                 }
             );
-            // res.status(400).json({
-            //     message: "signin Unsuccessful"
-            // });
         }
-        //...
     } catch (error) {
         next(error);
     }

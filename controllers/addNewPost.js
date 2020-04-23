@@ -15,7 +15,8 @@ async function addNewPost(req, res, next) {
         const newPost = await models.Posts.create(
             {
                 description: req.body.description,
-                userId: payload.id
+                userId: payload.id,
+                userName:payload.userName
             });
         req.body.imageList.map(async (el, key) => {
             // let url=await jwt.sign({ imageUrl: el.thumbUrl }, 'keyboard cat 4 ever')

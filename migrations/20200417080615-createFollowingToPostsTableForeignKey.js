@@ -3,7 +3,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.addConstraint('Following', ['followingUserId'], {
+    return queryInterface.addConstraint('Followings', ['followingUserId'], {
       type: 'foreign key',
       name: 'custom_fkey_following_posts',
       references: { //Required field
@@ -14,6 +14,7 @@ module.exports = {
       onUpdate: 'cascade'
     });
   },
+
 
   down: (queryInterface, Sequelize) => {
     /*

@@ -17,29 +17,41 @@ const GetUserFollowRequests = require('../controllers/getUserFollowRequests');
 const ApproveUserFollowRequests = require('../controllers/approveUserFollowRequest');
 const DeclineUserFollowRequests = require('../controllers/declineUserFollowRequest');
 const Timeline = require('../controllers/timeline');
+const AddComment=require('../controllers/addNewComment');
+const GetComments=require('../controllers/getComments');
 
-/* GET home page. */
-// router.get('/users/getActivities/:userName/:date',controller.getActivities);
+
 
 router.post('/login', Login);
 router.post('/signUp', SignUp);
 router.post('/uploadNewPost', UploadNewPost)
 router.post("/follow", FollowAPI);
+router.post('/addComment',AddComment);
+router.post('/unFollow', UnFollowAPI);
+router.post('/likeOrUnlikePost', LikeOrUnlikePost);
+router.post('/deletePost', DeletePost);
+
+
 router.get('/admin/userRequests', GetSignUpRequests);
 router.get('/admin/userList', GetApprovedUsers);
 router.get('/getUserPosts/:id', GetUserPosts)
 router.get('/getFollowersAndFollowing/:id', GetFollowersAndFollowing);
-router.put('/admin/userRequests/accept', ApproveSignUpRequests);
-router.delete('/admin/userRequests/decline', DeclineSignUpRequests);
-router.post('/unFollow', UnFollowAPI);
-router.post('/likeOrUnlikePost', LikeOrUnlikePost);
-router.post('/deletePost', DeletePost);
-router.put('/approveFollowRequest', ApproveUserFollowRequests);
-router.delete('/declineFollowRequest', DeclineUserFollowRequests)
+router.get('/getComments/:id',GetComments);
 router.get('/getFollowRequests/:id', GetUserFollowRequests)
 router.get('/timeline/:id', Timeline);
-// router.put('/users/updatePassword',controller.updatePassword);
-// router.post('/users/submitActivities',controller.postActivities);
-// router.get('/users/userReport/:userName',controller.userReport);
+
+
+
+router.put('/admin/userRequests/accept', ApproveSignUpRequests);
+router.put('/approveFollowRequest', ApproveUserFollowRequests);
+
+
+router.delete('/admin/userRequests/decline', DeclineSignUpRequests);
+router.delete('/declineFollowRequest', DeclineUserFollowRequests)
+
+
+
+
+
 
 module.exports = router;
