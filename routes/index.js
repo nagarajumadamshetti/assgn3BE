@@ -19,7 +19,7 @@ const DeclineUserFollowRequests = require('../controllers/declineUserFollowReque
 const Timeline = require('../controllers/timeline');
 const AddComment=require('../controllers/addNewComment');
 const GetComments=require('../controllers/getComments');
-
+const GetTotalTimelinePagesCount=require('../controllers/getTotalTimelinePagesCount');
 
 
 router.post('/login', Login);
@@ -38,8 +38,8 @@ router.get('/getUserPosts/:id', GetUserPosts)
 router.get('/getFollowersAndFollowing/:id', GetFollowersAndFollowing);
 router.get('/getComments/:id',GetComments);
 router.get('/getFollowRequests/:id', GetUserFollowRequests)
-router.get('/timeline/:id', Timeline);
-
+router.get('/timeline/:id/:page', Timeline);
+router.get('/timelinePagesCount/:id',GetTotalTimelinePagesCount);
 
 
 router.put('/admin/userRequests/accept', ApproveSignUpRequests);
