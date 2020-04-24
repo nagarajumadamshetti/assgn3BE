@@ -1,65 +1,67 @@
 const models = require('../models');
 const jwt = require('jsonwebtoken');
-const moment=require('moment');
+const moment = require('moment');
+const { Op } = require('sequelize');
 
-const  compare_time=(a, b)=>{
-    a=moment(a.createdAt);
-    b=moment(b.createdAt);
+const compare_time = (a, b) => {
+    a = moment(a.createdAt);
+    b = moment(b.createdAt);
     // a should come before b in the sorted order
-    if(a.isBefore(b)){
-            return 1;
-    // a should come after b in the sorted order
-    }else if(a.isAfter(b)){
-            return -1;
-    // a and b are the same
-    }else{
-            return 0;
+    if (a.isBefore(b)) {
+        return 1;
+        // a should come after b in the sorted order
+    } else if (a.isAfter(b)) {
+        return -1;
+        // a and b are the same
+    } else {
+        return 0;
     }
 }
 
 const timeline = async (req, res, next) => {
     try {
+        const limit = 3;
+        const page = req.params.page
         const payload = jwt.decode(req.params.id)
-        let timeline = await models.Following.findAll({
+        let users = await models.Following.findAll({
             where: {
                 userId: payload.id
             },
-            // as: 'user',
-
+            attributes: ['followingUserId']
+        });
+        users = await users.map(obj => obj.followingUserId)
+        
+        let timeline = await models.Posts.findAll({
+            where: {
+                userId: {
+                    [Op.in]: users
+                }
+            },
+            order: [
+                ['createdAt', 'DESC'],
+              
+            ],
             include: [
                 {
-                    model: models.Users,
-                    as: 'followingUser',
-                    attributes: ['id','userName'],
-                    include: [
-                        {
-                            model: models.Posts,
+                    model: models.Images,
+                    attributes: ['id', 'postId', 'imageUrl', 'lastModified']
 
-                            include: [
-                                {
-                                    model: models.Images,
-                                    attributes: ['id', 'postId', 'imageUrl', 'lastModified']
-
-                                },
-                                {
-                                    model: models.Likes,
-                                    attributes: ['id', 'postId', 'userId', 'likedUserName']
-                                },
-                                {
-                                    model: models.Comments,
-                                    attributes: ['id', 'postId', 'userId', 'commentedUserName','comment']
-                                },
-                            ]
-                        }
-                    ]
                 },
-            ]
-        })
-        let posts=[];
-        timeline=timeline.map(el=>{
-            posts=posts.concat(el.followingUser.Posts)
-        })
-        await posts.sort(compare_time);
+                {
+                    model: models.Likes,
+                    attributes: ['id', 'postId', 'userId', 'likedUserName']
+                },
+                {
+                    model: models.Comments,
+                    attributes: ['id', 'postId', 'userId', 'commentedUserName', 'comment']
+                },
+            ],
+            limit: limit,
+            offset: page - 1,
+        }
+
+        )
+        let posts =timeline
         res.status(200).json({
             posts,
             success: true
