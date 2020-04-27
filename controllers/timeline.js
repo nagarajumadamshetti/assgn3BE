@@ -1,28 +1,15 @@
 const models = require('../models');
-const jwt = require('jsonwebtoken');
-const moment = require('moment');
+const jwtDecode=require('./jwtDecode');
+
 const { Op } = require('sequelize');
 
-const compare_time = (a, b) => {
-    a = moment(a.createdAt);
-    b = moment(b.createdAt);
-    // a should come before b in the sorted order
-    if (a.isBefore(b)) {
-        return 1;
-        // a should come after b in the sorted order
-    } else if (a.isAfter(b)) {
-        return -1;
-        // a and b are the same
-    } else {
-        return 0;
-    }
-}
+
 
 const timeline = async (req, res, next) => {
     try {
         const limit = 3;
         const page = req.params.page
-        const payload = jwt.decode(req.params.id)
+        const payload = jwtDecode(req.params.id)
         let users = await models.Following.findAll({
             where: {
                 userId: payload.id

@@ -1,10 +1,11 @@
 const models = require('../models');
-const jwt = require('jsonwebtoken');
+const jwtDecode=require('./jwtDecode');
+
 
 
 async function approveUserFollowRequest(req, res, next) {
     try {
-        const payload = jwt.decode(req.body.loggedUserIdToken)
+        const payload = jwtDecode(req.body.loggedUserIdToken)
         let request = null;
         if (req.body.accepted === true) {
             request = await models.FollowRequests.findOne({

@@ -1,10 +1,10 @@
 const models = require('../models');
-const jwt = require('jsonwebtoken');
 
+const jwtDecode=require('./jwtDecode');
 
 const addNewComment = async (req, res, next) => {
     try {
-        const payload = jwt.decode(req.body.token)
+        const payload =await jwtDecode(req.body.token)
         await models.Comments.create({
             postId: req.body.postId,
             userId: payload.id,

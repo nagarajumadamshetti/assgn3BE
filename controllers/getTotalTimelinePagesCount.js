@@ -1,15 +1,11 @@
 const models = require('../models');
-const jwt = require('jsonwebtoken');
 const { Op } = require('sequelize');
+const jwtDecode=require('./jwtDecode');
 
 
 const totalPagesCount = async (req, res, next) => {
     try {
-        console.log("")
-        console.log("")
-        console.log("")
-        console.log("")
-        const payload = jwt.decode(req.params.id)
+        const payload = await jwtDecode(req.params.id)
         let users = await models.Following.findAll({
             where: {
                 userId: payload.id
@@ -17,8 +13,7 @@ const totalPagesCount = async (req, res, next) => {
             attributes: ['followingUserId']
         });
         users = await users.map(obj => obj.followingUserId)
-        console.log("")
-        console.log("")
+
         let count = await models.Posts.count({
             where: {
                 userId: {
@@ -28,8 +23,6 @@ const totalPagesCount = async (req, res, next) => {
         }
 
         )
-        console.log("")
-        console.log("")
         res.status(200).json({
             count,
             success: true
