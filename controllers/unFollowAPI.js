@@ -4,7 +4,9 @@ const jwtDecode=require('./jwtDecode');
 
 async function unFollowAPI(req, res, next) {
     try {
-        const payload =await jwtDecode(req.body.loggedUserIdToken)
+        const token=req.body.loggedUserIdToken
+
+        const payload =await jwtDecode(token)
         const users = await models.Users.findOne({
             where: {
                 userName: req.body.userName,

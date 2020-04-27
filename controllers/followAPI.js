@@ -4,7 +4,9 @@ const jwtDecode=require('./jwtDecode');
 
 async function followAPI(req, res, next) {
     try {
-        const payload = jwtDecode(req.body.loggedUserIdToken)
+        const token=req.body.loggedUserIdToken
+
+        const payload = jwtDecode(token)
         let users = await models.Users.findOne({
             where: {
                 userName: req.body.userName,

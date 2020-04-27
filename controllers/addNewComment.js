@@ -4,7 +4,8 @@ const jwtDecode=require('./jwtDecode');
 
 const addNewComment = async (req, res, next) => {
     try {
-        const payload =await jwtDecode(req.body.token)
+        const token=req.body.token
+        const payload =await jwtDecode(token)
         await models.Comments.create({
             postId: req.body.postId,
             userId: payload.id,

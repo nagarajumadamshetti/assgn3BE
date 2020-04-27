@@ -5,7 +5,9 @@ const jwtDecode=require('./jwtDecode');
 
 const totalPagesCount = async (req, res, next) => {
     try {
-        const payload = await jwtDecode(req.params.id)
+        const token=req.params.id
+
+        const payload = await jwtDecode(token)
         let users = await models.Following.findAll({
             where: {
                 userId: payload.id

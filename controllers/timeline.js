@@ -9,7 +9,9 @@ const timeline = async (req, res, next) => {
     try {
         const limit = 3;
         const page = req.params.page
-        const payload = jwtDecode(req.params.id)
+        const token=req.params.id
+
+        const payload = jwtDecode(token)
         let users = await models.Following.findAll({
             where: {
                 userId: payload.id

@@ -4,7 +4,9 @@ const jwtDecode=require('./jwtDecode');
 
 async function likeOrUnlikePost(req, res, next) {
     try {
-        const payload = jwtDecode(req.body.loggedUserIdToken)
+        const token=req.body.loggedUserIdToken
+
+        const payload = jwtDecode(token)
         let likes = await models.Likes.findOne({
             where: {
                 postId: req.body.postId,
