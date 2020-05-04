@@ -1,12 +1,8 @@
 const models = require('../models');
-const jwtDecode=require('./jwtDecode');
-
 
 async function unFollowAPI(req, res, next) {
     try {
-        const token=req.body.loggedUserIdToken
-
-        const payload =await jwtDecode(token)
+        const payload =req.body.token;
         const users = await models.Users.findOne({
             where: {
                 userName: req.body.userName,

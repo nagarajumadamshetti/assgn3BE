@@ -1,7 +1,7 @@
 const models = require('../models');
 
 
-async function approveSignUpRequest(req, res, next) {
+async function declineSignUpRequest(req, res, next) {
     try {
         const userName=req.body.userName
         const users = await models.Users.destroy({
@@ -18,4 +18,4 @@ async function approveSignUpRequest(req, res, next) {
         next(error);
     }
 }
-module.exports = exports = approveSignUpRequest;
+module.exports = exports = declineSignUpRequest;

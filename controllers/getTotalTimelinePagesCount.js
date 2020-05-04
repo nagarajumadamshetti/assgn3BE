@@ -1,13 +1,10 @@
 const models = require('../models');
 const { Op } = require('sequelize');
-const jwtDecode=require('./jwtDecode');
 
 
 const totalPagesCount = async (req, res, next) => {
     try {
-        const token=req.params.id
-
-        const payload = await jwtDecode(token)
+        const payload =req.body.token;
         let users = await models.Following.findAll({
             where: {
                 userId: payload.id

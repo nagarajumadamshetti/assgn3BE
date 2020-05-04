@@ -1,6 +1,6 @@
 const models = require('../models');
 const nodemailer=require('nodemailer')
-require('dotenv').config();
+// require('dotenv').config();
 
 const sendMail = async (users) => {
     const email = process.env.email;

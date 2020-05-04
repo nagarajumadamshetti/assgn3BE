@@ -1,6 +1,4 @@
 const models = require('../models');
-const jwtDecode=require('./jwtDecode');
-
 const { Op } = require('sequelize');
 
 
@@ -9,9 +7,7 @@ const timeline = async (req, res, next) => {
     try {
         const limit = 3;
         const page = req.params.page
-        const token=req.params.id
-
-        const payload = jwtDecode(token)
+        const payload =req.body.token;
         let users = await models.Following.findAll({
             where: {
                 userId: payload.id

@@ -1,13 +1,11 @@
 const models = require('../models');
-const jwtDecode=require('./jwtDecode');
+
 
 const moment = require('moment');
 
 async function addNewPost(req, res, next) {
     try {
-        const token=req.body.token
-
-        const payload =await jwtDecode(token)
+        const payload =req.body.token;
         const newPost = await models.Posts.create(
             {
                 description: req.body.description,
