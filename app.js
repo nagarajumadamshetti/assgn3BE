@@ -9,7 +9,7 @@ const cors = require('cors');
 // const exjwt = require('express-jwt');
 const indexRouter = require('./routes/index');
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 5000;
 
 // parse application/x-www-form-urlencoded
 app.use(cors());
