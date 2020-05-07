@@ -1,9 +1,8 @@
 const models = require('../models');
-const jwt = require('jsonwebtoken');
 
 async function followAPI(req, res, next) {
     try {
-        const payload = jwt.decode(req.body.loggedUserIdToken)
+        const payload =req.token;
         let users = await models.Users.findOne({
             where: {
                 userName: req.body.userName,

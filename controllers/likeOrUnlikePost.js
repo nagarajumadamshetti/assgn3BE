@@ -1,9 +1,9 @@
 const models = require('../models');
-const jwt = require('jsonwebtoken');
+
 
 async function likeOrUnlikePost(req, res, next) {
     try {
-        const payload = jwt.decode(req.body.loggedUserIdToken)
+        const payload =req.token;
         let likes = await models.Likes.findOne({
             where: {
                 postId: req.body.postId,

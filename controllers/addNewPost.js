@@ -1,17 +1,11 @@
 const models = require('../models');
-const passwordHash = require('password-hash');
-const jwt = require('jsonwebtoken');
+
+
 const moment = require('moment');
-const { Op } = require('sequelize')
-const express = require('express');
-const app = express();
 
 async function addNewPost(req, res, next) {
     try {
-        console.log("entered get add new post")
-        // console.log("entered signup2");
-        const payload = jwt.decode(req.body.token)
-        // console.log("id is" + payload.id)
+        const payload =req.token;
         const newPost = await models.Posts.create(
             {
                 description: req.body.description,

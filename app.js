@@ -1,18 +1,19 @@
+require('dotenv').config();
+
 const createError = require('http-errors');
 const express = require('express');
 // const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-const passwordHash = require('password-hash');
-const jwt = require('jsonwebtoken');
 // const exjwt = require('express-jwt');
 const indexRouter = require('./routes/index');
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 5000;
 
 // parse application/x-www-form-urlencoded
 app.use(cors());
+
 // app.use(bodyParser({ limit: '100mb' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json({ limit: '50mb' }));
