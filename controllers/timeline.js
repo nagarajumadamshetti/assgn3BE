@@ -7,7 +7,7 @@ const timeline = async (req, res, next) => {
     try {
         const limit = 3;
         const page = req.params.page
-        const payload =req.body.token;
+        const payload =req.token;
         let users = await models.Following.findAll({
             where: {
                 userId: payload.id

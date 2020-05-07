@@ -3,7 +3,7 @@ const models = require('../models');
 
 async function likeOrUnlikePost(req, res, next) {
     try {
-        const payload =req.body.token;
+        const payload =req.token;
         let likes = await models.Likes.findOne({
             where: {
                 postId: req.body.postId,

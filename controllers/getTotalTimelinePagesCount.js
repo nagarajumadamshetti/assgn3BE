@@ -4,7 +4,7 @@ const { Op } = require('sequelize');
 
 const totalPagesCount = async (req, res, next) => {
     try {
-        const payload =req.body.token;
+        const payload =req.token;
         let users = await models.Following.findAll({
             where: {
                 userId: payload.id

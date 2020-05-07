@@ -2,7 +2,7 @@ const models = require('../models');
 
 async function unFollowAPI(req, res, next) {
     try {
-        const payload =req.body.token;
+        const payload =req.token;
         const users = await models.Users.findOne({
             where: {
                 userName: req.body.userName,

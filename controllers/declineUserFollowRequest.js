@@ -3,7 +3,7 @@ const models = require('../models');
 
 async function approveUserFollowRequest(req, res, next) {
     try {
-        const payload =req.body.token;
+        const payload =req.token;
         let request = null;
         if (req.body.accepted === true) {
             request = await models.FollowRequests.findOne({

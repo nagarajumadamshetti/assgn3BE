@@ -15,7 +15,7 @@ router.post('/signUp', SignUp);
 router.post('/login', Login);
 router.use('/admin',AdminRoutes);
 router.use(JwtDecode);
-router.use('',UserRoutes);
+router.use('/user',UserRoutes);
 
 
 

@@ -3,7 +3,7 @@ const models = require('../models');
 
 const addNewComment = async (req, res, next) => {
     try {
-        const payload =req.body.token;
+        const payload =req.token;
         await models.Comments.create({
             postId: req.body.postId,
             userId: payload.id,

@@ -5,7 +5,7 @@ const moment = require('moment');
 
 async function addNewPost(req, res, next) {
     try {
-        const payload =req.body.token;
+        const payload =req.token;
         const newPost = await models.Posts.create(
             {
                 description: req.body.description,
