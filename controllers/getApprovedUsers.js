@@ -7,7 +7,7 @@ async function getApprovedUsers(req, res, next) {
                 where: {
                     accepted: true
                 },
-                attributes: ['userName']
+                attributes: ['userName','id']
             });
         res.status(200).json({
             success: true,

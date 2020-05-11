@@ -3,7 +3,7 @@ const { Op } = require('sequelize')
 
 async function getSignUpRequests(req, res, next) {
     try {
-        
+
         const users = await models.Users.findAll(
             {
                 where: {
@@ -16,7 +16,7 @@ async function getSignUpRequests(req, res, next) {
                         }
                     ]
                 },
-                attributes: ['userName']
+                attributes: ['userName', 'id']
             });
         res.status(200).json({
             success: true,
