@@ -5,18 +5,17 @@ const moment = require('moment');
 
 async function addNewPost(req, res, next) {
     try {
-        const payload =req.token;
+        const payload = req.token;
         const newPost = await models.Posts.create(
             {
                 description: req.body.description,
                 userId: payload.id,
-                userName:payload.userName
+                userName: payload.userName
             });
         req.body.imageList.map(async (el, key) => {
-            // let url=await jwt.sign({ imageUrl: el.thumbUrl }, 'keyboard cat 4 ever')
             const newImage = await models.Images.create(
                 {
-                    imageName:el.name,
+                    imageName: el.name,
                     postId: newPost.id,
                     imageUrl: el.thumbUrl,
                     lastModified: moment(el.lastModified)

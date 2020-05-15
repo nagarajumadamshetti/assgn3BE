@@ -40,6 +40,7 @@ async function signIn(req, res, next) {
         }
         if (match) {
             res.status(200).json({
+                users,
                 success: true,
                 uSuccess: true,
                 pSuccess: true,

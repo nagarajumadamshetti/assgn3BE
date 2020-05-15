@@ -37,12 +37,12 @@ async function approveSignUpRequest(req, res, next) {
                 { accepted: req.body.accepted },
                 {
                     where: {
-                        userName: req.body.userName
+                        id:req.body.id
                     }
                 });
                 users=await models.Users.findOne({
                     where:{
-                        userName:req.body.userName,
+                        id:req.body.id,
                         accepted:true
                     }
                 })

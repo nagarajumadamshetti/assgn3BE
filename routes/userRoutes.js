@@ -15,7 +15,9 @@ const Timeline = require('../controllers/timeline');
 const AddComment=require('../controllers/addNewComment');
 const GetComments=require('../controllers/getComments');
 const GetTotalTimelinePagesCount=require('../controllers/getTotalTimelinePagesCount');
-
+const GetUserPostsWithId=require('../controllers/getUserPostsWithId');
+const GetUserFollowRequestsWithId=require('../controllers/getUserFollowRequestsWithId');
+const getFollowersAndFollowingWithId =require('../controllers/getFollowersAndFollowingWithId');
 
 
 router.get('/getUserPosts/:id', GetUserPosts);
@@ -24,7 +26,9 @@ router.get('/getComments/:id',GetComments);
 router.get('/getFollowRequests/:id', GetUserFollowRequests);
 router.get('/timeline/:id/:page', Timeline);
 router.get('/timelinePagesCount/:id',GetTotalTimelinePagesCount);
-
+router.get('/getUserPostsWithId/:id',GetUserPostsWithId);
+router.get('/getFollowRequestsWithId/:id',GetUserFollowRequestsWithId);
+router.get('/getFollowersAndFollowing/:id',getFollowersAndFollowingWithId);
 
 
 

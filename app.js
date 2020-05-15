@@ -11,6 +11,7 @@ const indexRouter = require('./routes/index');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+app.set('env',process.env.NODE_ENV)
 // parse application/x-www-form-urlencoded
 app.use(cors());
 
